@@ -1,0 +1,16 @@
+{
+  "name": "minimall_server",
+  "version": "1.0.0",
+  "description": "小程序商场的后端nodejs应用",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.3.7"
+  }
+}
