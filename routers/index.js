@@ -2,6 +2,7 @@
 用来定义路由的路由器模块
  */
 const express = require('express')
+const axios = require('axios')
 
 const MultiImgModel = require('../models/MultiImgModel')
 const ProductModel = require('../models/ProductModel')
@@ -12,6 +13,10 @@ const RecommendModel = require('../models/RecommendModel')
 
 // 得到路由器对象
 const router = express.Router()
+
+// 转发URL
+const forwardURL = 'http://123.207.32.32:8000/api/w1'
+// const forwardURL = 'http://106.54.54.237:8000/api/w1'
 
 // 获取轮播图
 router.get('/home/multidata', (req, res) => {
@@ -102,6 +107,21 @@ router.get('/recommend', (req, res) => {
       res.send({
         returnCode: "fail",
         msg: "获取推荐商品失败，请重新尝试!，可联系qq：1329105041"
+      })
+    })
+})
+
+// 获取商品详情
+router.get('/detail', (req, res) => {
+  const { iid } = req.query;
+  // 因为数据库存储商品详情，所以转发别的接口请求
+  axios.get(`${forwardURL}/detail?iid=${iid}`)
+    .then(result => res.send(result.data))
+    .catch(err => {
+      console.error('获取商品详情异常', err);
+      res.send({
+        returnCode: "fail",
+        msg: "获取商品详情失败，请重新尝试!，可联系qq：1329105041"
       })
     })
 })
